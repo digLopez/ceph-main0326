@@ -56,17 +56,17 @@ int main(int argc, const char **argv)
       // We also want to apply the config file if the user specified
       // one, and conf_parse_argv won't do that for us.
       for (int i = 0; i < argc; ++i) {
-	if ((strcmp(argv[i], "-c") == 0) || (strcmp(argv[i], "--conf") == 0)) {
-	  ret = rados.conf_read_file(argv[i+1]);
-	  if (ret < 0) {
-	    // This could fail if the config file is malformed, but it'd be hard.
-	    std::cerr << "failed to parse config file " << argv[i+1]
-	              << "! error" << ret << std::endl;
-	    ret = EXIT_FAILURE;
-	    goto out;
-	  }
-	  break;
-	}
+        if ((strcmp(argv[i], "-c") == 0) || (strcmp(argv[i], "--conf") == 0)) {
+          ret = rados.conf_read_file(argv[i+1]);
+          if (ret < 0) {
+            // This could fail if the config file is malformed, but it'd be hard.
+            std::cerr << "failed to parse config file " << argv[i+1]
+                      << "! error" << ret << std::endl;
+            ret = EXIT_FAILURE;
+            goto out;
+          }
+          break;
+        }
       }
     }
   }

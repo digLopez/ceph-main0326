@@ -59,12 +59,12 @@ int main(int argc, const char **argv)
         ret = rados.conf_read_file(argv[i+1]);
         if (ret < 0) {
           // This could fail if the config file is malformed, but it'd be hard.
-	  std::cerr << "failed to parse config file " << argv[i+1]
-	            << "! error" << ret << std::endl;
-	  ret = EXIT_FAILURE;
-	  goto out;
-	}
-	break;
+          std::cerr << "failed to parse config file " << argv[i+1]
+                    << "! error" << ret << std::endl;
+          ret = EXIT_FAILURE;
+          goto out;
+        }
+        break;
       }
     }
   }
@@ -237,6 +237,7 @@ int main(int argc, const char **argv)
     failed_write_op.setxattr("version", version_bl);
     ret = io_ctx.operate(object_name, &failed_write_op);
     if (ret < 0) {
+      // it failed because the version value is set to 2 in line 207
       std::cout << "we just failed a write because the xattr wasn't as specified"
 		<< std::endl;
     } else {
